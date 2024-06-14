@@ -6,7 +6,9 @@ import cv2
 
 
 
-def recognize_text(image_path):
+def recognize_text(image_path, input_path):
+    n = input_path.split('\\')
+    save_as = n[-1]
     image = keras_ocr.tools.read(image_path)
     pipeline = keras_ocr.pipeline.Pipeline()
     predictions = pipeline.recognize([image])
@@ -23,7 +25,7 @@ def recognize_text(image_path):
             masked_image = np.where(mask == 255, image, masked_image)
 
         imagez = Image.fromarray(masked_image)
-        imagez.save('ocr-ed_image.png')
+        imagez.save(f'ocr_ed_imgs//{save_as}')
 
         #ax.imshow(masked_image)
         ax.axis('off')
