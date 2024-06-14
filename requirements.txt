@@ -1,0 +1,6 @@
+opencv-python
+matplotlib
+keras-ocr
+numpy
+pillow
+tensorflow==2.15.0
