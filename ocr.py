@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from PIL import Image             #to create image
 import keras_ocr                  #text detection library
 import matplotlib.pyplot as plt 
@@ -6,10 +7,10 @@ import cv2
 
 
 
-def recognize_text(image_path, input_path):
-    n = input_path.split('\\')               #to get the file name from input path  
-    save_as = n[-1]
-    image = keras_ocr.tools.read(image_path) #image_path contains path of preprocessed image
+def recognize_text(temp_path, input_path):
+    file_name = os.path.basename(input_path)
+    output_path = os.path.join('data', 'output', file_name)  #to get the file name from input path  
+    image = keras_ocr.tools.read(temp_path) #image_path contains path of preprocessed image
     pipeline = keras_ocr.pipeline.Pipeline()
     predictions = pipeline.recognize([image])
 
@@ -26,9 +27,10 @@ def recognize_text(image_path, input_path):
             masked_image = np.where(mask == 255, image, masked_image)
 
         imagez = Image.fromarray(masked_image)
-        imagez.save(f'data//output//{save_as}')
+        imagez.save(output_path)
 
         #ax.imshow(masked_image)
         ax.axis('off')
 
+    os.remove(temp_path)
     #plt.show()
