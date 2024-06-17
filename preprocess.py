@@ -30,5 +30,4 @@ def preprocess_image_for_ocr(image_path):
     morphed_image = apply_morphological_operations(thresholded_image)
     final_image = remove_noise(morphed_image)
 
-    save_image(final_image, 'final_image.png')
-    return final_image
+    save_image(final_image, 'final_image.png')          #saves preprocessed image to be fed into detection pipeline
